@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Fizz Buzz Test</title>
+    <style>
+        body {
+            --green: rgb(0, 255, 0);
+
+            background-color: #000;
+
+            color: var(--green);
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 36px;
+            font-weight: bold;
+            line-height: .75;
+
+            text-align: center;
+            padding: 100px;
+        }
+        @keyframes fadein {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        @keyframes fadeout {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        .line {
+            margin-bottom: 5px;
+        }
+        .msg {
+            position: relative;
+        }
+        /* flashing background */
+        .msg::before {
+            --padding-h: -25px;
+            --padding-v: -2px;
+
+            animation-duration: 200ms;
+            animation-iteration-count: 1;
+            animation-name: fadeout;
+
+            background-color: var(--green);
+            border-radius: 25px;
+            box-shadow: 0 0 20px var(--green);
+            content: '';
+            display: block;
+            opacity: 0;
+            position: absolute;
+            z-index: -1;
+
+            top: var(--padding-v);
+            right: var(--padding-h);
+            bottom: var(--padding-v);
+            left: var(--padding-h);
+        }
+        .msgtext {
+            animation-duration: 1s;
+            animation-iteration-count: 1;
+            animation-name: fadein;
+            animation-timing-function: ease-in;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app"></div>
+
+    <script>
+
+        let i = 1
+        const max = 100
+        const time = 150
+
+        let app = window.document.querySelector('#app')
+
+        let interval = setInterval(_ => {
+
+            let line = window.document.createElement('div')
+            let msgel = window.document.createElement('span')
+            let msgtext = window.document.createElement('span')
+
+            const isMultipleOf3 = i % 3 === 0
+            const isMultipleOf5 = i % 5 === 0
+
+            if (isMultipleOf3 && isMultipleOf5)
+                msg = 'FizzBuzz'
+            else if (isMultipleOf3)
+                msg = 'Fizz'
+            else if (isMultipleOf5)
+                msg = 'Buzz'
+            else
+                msg = i
+
+            line.appendChild(msgel)
+            msgel.appendChild(msgtext)
+
+            line.classList.add('line')
+            msgel.classList.add('msg')
+            msgtext.classList.add('msgtext')
+
+            msgtext.innerText = msg
+
+            app.appendChild(line)
+
+            const options = time >= 125 ? { behavior: 'smooth' } : null
+            line.scrollIntoView(options)
+
+            i++
+
+            if (i > max) {
+                clearInterval(interval)
+            }
+        }, time)
+    </script>
+
+</body>
+</html>
