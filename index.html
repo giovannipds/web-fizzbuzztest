@@ -74,6 +74,8 @@
         let i = 1
         const max = 100
         const time = 150
+        const word1 = 'Fizz'
+        const word2 = 'Buzz'
 
         let app = window.document.querySelector('#app')
 
@@ -87,11 +89,11 @@
             const isMultipleOf5 = i % 5 === 0
 
             if (isMultipleOf3 && isMultipleOf5)
-                msg = 'FizzBuzz'
+                msg = word1 + word2
             else if (isMultipleOf3)
-                msg = 'Fizz'
+                msg = word1
             else if (isMultipleOf5)
-                msg = 'Buzz'
+                msg = word2
             else
                 msg = i
 
